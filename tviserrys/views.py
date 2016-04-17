@@ -12,12 +12,9 @@ class IndexView(View):
 
     @method_decorator(login_required(login_url='/login/'))
     def get(self, request, *args, **kwargs):
-        if request.user.is_facilitator:
-            context = RequestContext(request, {
-            })
+        context = RequestContext(request, {
+        })
 
-            return render(request, self.template_name, context)
+        return render(request, self.template_name, context)
 
-        else:
-            raise PermissionDenied
 
