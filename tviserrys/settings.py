@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "compressor",
     'djangobower',
+    'user_profile',
     'tviit',
 ]
 
