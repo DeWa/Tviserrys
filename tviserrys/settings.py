@@ -139,3 +139,11 @@ BOWER_INSTALLED_APPS = (
 COMPRESS_PRECOMPILERS = (
     ('text/scss', 'sass --scss {infile} {outfile}'),
 )
+
+# Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'PAGE_SIZE': 10,
+}
