@@ -12,7 +12,11 @@ class Tviit(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Tviit sender",
     )
-    content = models.TextField()
+    content = models.TextField(max_length=160)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    reply = models.ForeignKey("self", null=True)
+    reply = models.ForeignKey("self", null=True, blank=True)
+
+
+    class Meta:
+        ordering = ('created',)
