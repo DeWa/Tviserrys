@@ -5,4 +5,4 @@ from .models import Tviit
 class TviitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tviit
-        fields = ('uuid', 'sender', 'content', 'created', 'modified', 'reply')
+        fields = ('pk', 'uuid', 'sender', 'content', 'created', 'modified', 'reply')
