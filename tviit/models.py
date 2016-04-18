@@ -6,7 +6,7 @@ import uuid
 from django.db import models
 
 class Tviit(models.Model):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    uuid = models.CharField(unique=True, max_length=40, default=uuid.uuid4().int, editable=False)
     sender = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
