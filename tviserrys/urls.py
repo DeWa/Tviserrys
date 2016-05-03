@@ -3,6 +3,7 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls import url
 from django.contrib import admin
 from . import views
+from tviserrys.settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
@@ -15,6 +16,6 @@ urlpatterns = [
     url(r'^password_reset/done/$', auth_views.password_reset_done),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.password_reset_confirm),
     url(r'^reset/done/$', auth_views.password_reset_complete),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/v1/', include('api.urls', namespace='api')),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': MEDIA_ROOT, 'show_indexes': False}),
 ]
