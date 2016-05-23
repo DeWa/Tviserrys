@@ -38,10 +38,10 @@
                             {% endif %}
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="{% url "profile:profile_own_view" %}">Profile</a></li>
                             <li><a href="#">Settings</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Log out</a></li>
+                            <li><a href="/logout">Log out</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -54,4 +54,5 @@
 </body>
 <script type="text/javascript" src="{% static "jquery/dist/jquery.min.js" %}"></script>
 <script type="text/javascript" src="{% static "bootstrap/dist/js/bootstrap.min.js" %}"></script>
+<script type="text/javascript" src="{% static "scripts/main.js" %}"></script>
 </html>
