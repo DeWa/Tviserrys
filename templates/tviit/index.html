@@ -13,8 +13,13 @@
            <div class="col-md-6">
                <div class="row">
                    <div class="col-lg-12">
-                       <textarea id="tviitContent"></textarea>
-                       <button id="tviitSubmit" type="button">Send</button>
+                       {{ tviit_form.content.errors }}
+                       <form id="tviitForm" action="{% url 'tviit:create_tviit' %}" method="post" enctype="multipart/form-data">
+                           {% csrf_token %}
+                           {{ tviit_form.content }}
+                           {{ tviit_form.image }}
+                           <button id="submitTviit" type="button">Tviit</button>
+                       </form>
                    </div>
                </div>
                <div class="row tvit-box">
