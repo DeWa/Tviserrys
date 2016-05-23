@@ -142,3 +142,12 @@ MEDIA_URL = '/media/'
 COMPRESS_PRECOMPILERS = (
     ('text/scss', 'sass --scss {infile} {outfile}'),
 )
+
+# Google API Key
+GOOGLE_API_KEY = 'CHANGEME'
+
+# Replace local settings
+try:
+    from local_settings import *
+except ImportError:
+    pass
