@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
   user = models.OneToOneField(User)
   description = models.TextField(max_length=3000)
-  picture = models.ImageField(upload_to='media/profiles/')
+  picture = models.ImageField(blank=True, upload_to='media/profiles/')
   thumbnail = models.ImageField(
     upload_to='media/profiles/thumb/',
     max_length=500,
