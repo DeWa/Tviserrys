@@ -27,7 +27,7 @@ rename_thumbnail = PathAndRename("profiles/thumbs")
 
 class UserProfile(models.Model):
   user = models.OneToOneField(User)
-  description = models.TextField(max_length=3000)
+  description = models.TextField(max_length=3000, blank=True)
   picture = models.ImageField(blank=True, upload_to=rename_image)
   location = models.CharField(max_length=100, blank=True)
   thumbnail = models.ImageField(
@@ -106,6 +106,8 @@ class UserProfile(models.Model):
 
     # Force an UPDATE SQL query if we're editing the image to avoid integrity exception
     super(UserProfile, self).save(force_update=force_update)
+
+
 
 # Create UserProfile when user is created
 @receiver(post_save, sender=User)
