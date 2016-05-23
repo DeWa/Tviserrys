@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>{{ user.first_name }} {{ user.last_name }} </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                {% if profile.picture %}
+                    <img src="{{ profile.picture.url }}" class="profile-picture-big" alt="Profile pic">
+                {% else %}
+                    <img class="profile-picture" src="{% static "images/placeholder_user.svg" %}" alt="Profile pic">
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4>Description</h4>
+                {{ profile.description }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h4>Location</h4>
+                 <iframe
+                        width="400"
+                        height="350"
+                        frameborder="0" style="border:0"
+                        src="https://www.google.com/maps/embed/v1/place?q={{ profile.location|lower }}&zoom=17&key={{ apikey }}">
+                 </iframe>
+            </div>
+        </div>
+        <div class="row">
+            {% if user == request.user %}
+                <a href="{% url "profile:profile_edit" %}" class="btn btn-primary">Edit profile</a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
