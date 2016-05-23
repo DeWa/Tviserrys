@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render_to_response, render
 from models import UserProfile, EditProfileForm
+from django.conf import settings
 
 class EditView(View):
     @method_decorator(login_required(login_url='/login/'))
@@ -63,6 +64,7 @@ class ViewView(View):
         context = {
             'user': user,
             'profile': profile,
+            'apikey': settings.GOOGLE_API_KEY
         }
 
         return HttpResponse(template.render(context, request))
