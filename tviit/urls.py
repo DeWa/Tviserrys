@@ -4,5 +4,6 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^', views.IndexView.as_view(), name='tviit_index'),
+    url(r'^$', views.IndexView.as_view(), name='tviit_index'),
+    url(r'create/$', views.create_tviit, name="create_tviit"),
 ]
