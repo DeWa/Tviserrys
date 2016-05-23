@@ -29,7 +29,6 @@ def create_tviit(request):
             f = form.save(commit=False)
             f.uuid = uuid.uuid4().int
             f.sender = request.user
-            print request.FILES
             f.image = request.FILES['image']
             f.save()
             return HttpResponse(status=201) # Created
