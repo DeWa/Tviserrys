@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.utils.deconstruct import deconstructible
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from django.forms import ModelForm
+from django import forms
 import uuid, os
 
 
@@ -92,13 +94,14 @@ class UserProfile(models.Model):
     )
 
   def save(self, *args, **kwargs):
-    self.create_thumbnail()
-
     force_update = False
 
     # If the instance already has been saved, it has an id and we set
     # force_update to True
     if self.id:
+      orig = UserProfile.objects.get(pk=self.pk)
+      if orig.picture != self.picture:
+        self.create_thumbnail()
       force_update = True
 
     # Force an UPDATE SQL query if we're editing the image to avoid integrity exception
@@ -111,3 +114,12 @@ def create_profile(sender, **kwargs):
     if kwargs["created"]:
       profile = UserProfile(user=user)
       profile.save()
+
+
+class EditProfileForm(ModelForm):
+    first_name = forms.CharField(label='First name', max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Search'}))
+    last_name = forms.CharField(label='Last name', max_length=100)
+
+    class Meta:
+        model = UserProfile
+        fields = ['first_name', 'last_name', 'description','picture', 'location']
