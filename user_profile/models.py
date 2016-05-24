@@ -26,7 +26,7 @@ rename_image = PathAndRename("profiles/screen")
 rename_thumbnail = PathAndRename("profiles/thumbs")
 
 class UserProfile(models.Model):
-  user = models.OneToOneField(User)
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
   description = models.TextField(max_length=3000, blank=True)
   picture = models.ImageField(blank=True, upload_to=rename_image)
   location = models.CharField(max_length=100, blank=True)
