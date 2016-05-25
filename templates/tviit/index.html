@@ -22,30 +22,49 @@
                        </form>
                    </div>
                </div>
-               <div class="row tvit-box">
-                   <div class="col-lg-2">
-
-                   </div>
-                   <div class="col-lg-10">
-                       <div class="row">
-                           <div class="col-lg-12">
-                               Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti.
+               {% for tviit in tviits %}
+                   <div class="row tvit-box">
+                       <div class="col-lg-2">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <img class="profile-picture" src="{{ tviit.sender.userprofile.picture.url}}">
+                                </div>
+                            </div>
+                       </div>
+                       <div class="col-lg-10">
+                           <div class="row">
+                               <div class="col-lg-12">
+                                    <a href="{% url "profile:profile_view" tviit.sender.username %}">{{ tviit.sender.first_name}} {{ tviit.sender.last_name}}</a> @{{ tviit.sender.username }} {{ tviit.created|date:'Y-m-d H:i' }}
+                               </div>
+                           </div>
+                           <div class="row">
+                               <div class="col-lg-12 tviit-content">
+                                    {{ tviit.content }}
+                               </div>
+                           </div>
+                           <div class="row">
+                               <div class="col-lg-2">
+                                   <button type="button">ReTvit</button>
+                               </div>
+                               <div class="col-lg-2">
+                                   <button class="reply-tviit-button" type="button">Reply</button>
+                               </div>
+                               <div class="col-lg-2">
+                                   <button type="button">Like</button>
+                               </div>
                            </div>
                        </div>
-                       <div class="row">
-                           <div class="col-lg-2">
-                               <button type="button">ReTvit</button>
-                           </div>
-                           <div class="col-lg-2">
-                               <button type="button">Reply</button>
-                           </div>
-                           <div class="col-lg-2">
-                               <button type="button">Like</button>
-                           </div>
-                       </div>
+                    </div>
+                   <div class="row reply-tviit">
+                       <form class="replyTviitForm" action="{% url 'tviit:reply_tviit' %}" method="post" enctype="multipart/form-data">
+                           <input type="hidden" name="reply" value="{{ tviit.uuid }}">
+                           {% csrf_token %}
+                           {{ tviit_form.content }}
+                           {{ tviit_form.image }}
+                           <button class="submitReply" type="button">Tviit</button>
+                       </form>
                    </div>
-               </div>
-
+               {% endfor %}
            </div>
            <div class="col-md-2">
                <div class="col-lg-12">
