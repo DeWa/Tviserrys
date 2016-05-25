@@ -5,9 +5,12 @@ from django.template import RequestContext, loader
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404, render_to_response, render
 from models import UserProfile, EditProfileForm
 from django.conf import settings
+from django.views.decorators.csrf import csrf_protect
+
 
 class EditView(View):
     @method_decorator(login_required(login_url='/login/'))
@@ -68,3 +71,14 @@ class ViewView(View):
         }
 
         return HttpResponse(template.render(context, request))
+
+@csrf_protect
+def delete_account(request):
+    if request.method == 'POST':
+        # Remove user
+        request.user.delete()
+        # Log the user out
+        logout(request)
+        return HttpResponse(status=200)  # Ok
+    else:
+        return HttpResponse(status=400)  # Bad Content
