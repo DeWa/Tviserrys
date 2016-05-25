@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1>Create an account</h1>
+
+            <form action="/register/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <ul style="list-style: none">
+                    <li>
+                        <label for="id_username">Username</label>
+                        {{ form.username.errors }}
+                        {{ form.username }}
+                    </li>
+                    <li>
+                        <label for="id_first_name">First Name</label>
+                        {{ form.first_name.errors }}
+                        {{ form.first_name }}
+                    </li>
+                    <li>
+                        <label for="id_last_name">Last Name</label>
+                        {{ form.last_name.errors }}
+                        {{ form.last_name }}
+                    </li>
+                    <li>
+                        <label for="id_password1">Password</label>
+                        {{ form.password1.errors }}
+                        {{ form.password2 }}
+                    </li>
+                    <li>
+                        <label for="id_password2">Repeat Password</label>
+                        {{ form.password2.errors }}
+                        {{ form.password2 }}
+                    </li>
+                    <li>
+                        <label for="id_picture">Profile Picture</label>
+                        {{ form.picture.errors }}
+                        {{ form.picture }}
+                    </li>
+                    <li>
+                        <label for="id_description">Description</label>
+                        {{ form.description.errors }}
+                        {{ form.description }}
+                    </li>
+                    <li>
+                        <label for="id_location">Location</label>
+                        {{ form.location.errors }}
+                        {{ form.location }}
+                    </li>
+                    <li>
+                        <input type="submit" value="Create the account">
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
