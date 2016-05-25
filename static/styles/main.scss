@@ -3,7 +3,35 @@ body {
   padding-top: 70px;
 }
 
+/* Navigation */
 .navbar-brand {
   text-transform: uppercase;
   font-family: 'Fredoka One', cursive;
+
+  a:link {
+    color: #7DB4B5 !important;
+  }
+}
+
+.profile-picture{
+  max-width: 150px !important;
+  max-height: 40px;
+}
+
+.profile-picture-big{
+  max-width: 350px !important;
+  max-height: auto;
+}
+
+/* Dividers */
+.bottom-divider {
+    border-bottom: 1px solid #ccc;
+}
+
+.right-divider {
+    border-right: 1px solid #ccc;
+}
+
+.left-divider {
+    border-left: 1px solid #ccc;
 }
