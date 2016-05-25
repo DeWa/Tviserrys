@@ -5,13 +5,14 @@ from django.template import RequestContext, loader
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render_to_response, render
+from django import forms
 from tviit.models import Tviit, TviitForm
+from user_profile.models import CreateProfileForm
 from django.contrib.auth.models import User
 from user_profile.models import UserProfile
 
 
 class IndexView(View):
-
 
     @method_decorator(login_required(login_url='/login/'))
     def get(self, request, *args, **kwargs):
@@ -19,13 +20,33 @@ class IndexView(View):
         profile = UserProfile.objects.get(user=request.user)
 
         tviits = get_latest_tviits(profile)
-        print(tviits)
         context = {
             'profile': profile,
             'tviit_form': TviitForm,
             'tviits': tviits,
         }
         return HttpResponse(template.render(context, request))
+
+class RegisterView(View):
+        def get(self, request, *args, **kwargs):
+            template = loader.get_template('registration/register.html')
+            form = CreateProfileForm()
+            context = {
+                'form': form,
+            }
+            return HttpResponse(template.render(context, request))
+
+        def post(self, request, *args, **kwargs):
+            form = CreateProfileForm(request.POST)
+            template = loader.get_template('registration/register.html')
+            if form.is_valid():
+                new_user = form.save()
+                return HttpResponseRedirect("/")
+            else:
+                context = {
+                    'form': form,
+                }
+                return HttpResponse(template.render(context, request))
 
 
 # Get all the tviits, which aren't replies

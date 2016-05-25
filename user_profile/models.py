@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django import forms
+from django.core.validators import RegexValidator
 import uuid, os
 from PIL import Image
 from io import BytesIO
@@ -81,6 +82,52 @@ def resize_and_crop(sender, **kwargs):
     image = image.resize((new_width, new_height), Image.ANTIALIAS)
     image = image.crop((0, 0, 200, 200))
     image.save(picture.path)
+
+class CreateProfileForm(ModelForm):
+
+    username = forms.CharField(label='User name', max_length=20,validators=[
+        RegexValidator(
+            regex='^[a-zA-Z0-9]*$',
+            message='Username must contain only numbers and letters',
+            code='invalid_username'
+        ),
+    ])
+    first_name = forms.CharField(label='First name', max_length=100)
+    last_name = forms.CharField(label='Last name', max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput())
+    password2 = forms.CharField(widget=forms.PasswordInput())
+
+    def __init__(self, *args, **kwargs):
+        super(CreateProfileForm, self).__init__(*args, **kwargs)
+
+        self.fields['password'].required = False
+        self.fields['password2'].required = False
+
+    class Meta:
+        model = UserProfile
+        fields = ['username', 'first_name', 'last_name','password', 'password2', 'description','picture', 'location']
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError(u'%s already exists' % username)
+
+    def clean(self, *args, **kwargs):
+        cleaned_data = super(CreateProfileForm, self).clean()
+        password = cleaned_data.get("password")
+        password2 = cleaned_data.get("password2")
+
+        # Error if passwords are empty
+        if not password or not password2:
+            raise forms.ValidationError({'password': ['Password cannot be empty']})
+        if password != password:
+            raise forms.ValidationError({'password': ['Passwords don\'t match']})
+
+        return super(CreateProfileForm, self).clean(*args, **kwargs)
+
 
 
 class EditProfileForm(ModelForm):
