@@ -4,10 +4,13 @@
 <html>
 <head>
     <link rel="stylesheet" href="{% static "bootstrap/dist/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "trumbowyg/dist/ui/trumbowyg.min.css" %}">
 
     {% compress css %}
         <link rel="stylesheet" type="text/scss" href="{% static 'styles/main.scss' %}"/>
     {% endcompress %}
+    <script type="text/javascript" src="{% static "jquery/dist/jquery.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "bootstrap/dist/js/bootstrap.min.js" %}"></script>
     <title>Tviserrys</title>
 </head>
 <body>
@@ -52,7 +55,5 @@
 {% block content %}
 {% endblock %}
 </body>
-<script type="text/javascript" src="{% static "jquery/dist/jquery.min.js" %}"></script>
-<script type="text/javascript" src="{% static "bootstrap/dist/js/bootstrap.min.js" %}"></script>
 <script type="text/javascript" src="{% static "scripts/main.js" %}"></script>
 </html>
