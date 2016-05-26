@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load bleach_tags %}
+
 
 {% block content %}
     <div class="container">
@@ -107,5 +109,24 @@
                 }
             });
         }
+    </script>
+    <script type="text/javascript" src="{% static "trumbowyg/dist/trumbowyg.min.js" %}"></script>
+    <script type="text/javascript">
+
+        $('#id_description').trumbowyg({
+            btns: [
+                ['viewHTML'],
+                ['formatting'],
+                'btnGrp-semantic',
+                ['superscript', 'subscript'],
+                ['link'],
+                'btnGrp-justify',
+                'btnGrp-lists',
+                ['horizontalRule'],
+                ['removeformat'],
+                ['fullscreen']
+            ]
+        });
+
     </script>
 {% endblock %}
