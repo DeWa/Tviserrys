@@ -18,11 +18,13 @@ class IndexView(View):
     def get(self, request, *args, **kwargs):
         template = loader.get_template('tviit/index.html')
         profile = UserProfile.objects.get(user=request.user)
+        users = get_random_users()
 
         tviits = get_latest_tviits(profile)
         context = {
             'profile': profile,
             'tviit_form': TviitForm,
+            'random_users': users,
             'tviits': tviits,
         }
         return HttpResponse(template.render(context, request))
@@ -75,3 +77,8 @@ def get_latest_tviits(profile):
     follows = User.objects.filter(pk__in=profile.follows.all())
     tviits = Tviit.objects.filter(sender__in=follows)
     return tviits
+
+# Get 5 random users
+def get_random_users():
+    users = User.objects.filter(groups__name__in=['users']).order_by('?')[:5]
+    return users
