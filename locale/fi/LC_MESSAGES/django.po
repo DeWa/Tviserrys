@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-26 11:47+0300\n"
+"POT-Creation-Date: 2016-05-26 21:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,56 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/profile/edit.html:9
+msgid "Back"
+msgstr "Takaisin"
+
+#: templates/profile/edit.html:10 templates/profile/view.html.py:43
+msgid "Edit Profile"
+msgstr "Muokkaa Profiilia"
+
+#: templates/profile/edit.html:19
+msgid "First Name"
+msgstr "Etunimi"
+
+#: templates/profile/edit.html:26
+msgid "Last Name"
+msgstr "Sukunimi"
+
+#: templates/profile/edit.html:44
+msgid "Your profile picture will be cropped into 200x200 pixels"
+msgstr "Profiilikuvasi tullaan rajaamaan 200x200 kokoiseksi."
+
+#: templates/profile/edit.html:57 templates/profile/view.html.py:24
+msgid "Description"
+msgstr "Esittely"
+
+#: templates/profile/edit.html:64 templates/profile/view.html.py:31
+msgid "Location"
+msgstr "Sijainti"
+
+#: templates/profile/edit.html:71
+msgid "Save"
+msgstr "Tallenna"
+
+#: templates/profile/edit.html:74 templates/profile/edit.html.py:93
+msgid "Delete Account"
+msgstr "Poista Tili"
+
+#: templates/profile/edit.html:86
+msgid "Confirmation"
+msgstr "Varmistus"
+
+#: templates/profile/edit.html:89
+msgid ""
+"Do you really want to delete your account? (This will also delete your "
+"tviits)"
+msgstr "Haluatko varmasti poistaa tilisi? (Tämä tuhoaa myös tviittisi)"
+
+#: templates/profile/edit.html:92
+msgid "Cancel"
+msgstr "Peruuta"
 
 #: templates/registration/login.html:9
 msgid "Your username and password didn't match. Please try again."
@@ -29,3 +79,35 @@ msgstr "Kirjaudu sisään nähdäksesi sivun."
 #: templates/registration/login.html:25
 msgid "Username"
 msgstr "Käyttäjänimi"
+
+#: templates/search/search.html:6
+msgid "Search"
+msgstr "Etsi"
+
+#: templates/search/search.html:19
+msgid "Results"
+msgstr "Tulokset"
+
+#: templates/search/search.html:64
+msgid "No results found."
+msgstr "Ei tuloksia"
+
+#: templates/search/search.html:71
+msgid "Previous"
+msgstr "Edellinen"
+
+#: templates/search/search.html:74
+msgid "Next"
+msgstr "Seuraava"
+
+#: templates/tviit/index.html:11
+msgid "Trending tags"
+msgstr "Suositus Tagit"
+
+#: templates/tviit/index.html:93
+msgid "People you may know"
+msgstr "Ihmisiä, jotka saatat tuntea"
+
+#: templates/tviit/index.html:111
+msgid "Follow"
+msgstr "Seuraa"
