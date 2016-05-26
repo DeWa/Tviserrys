@@ -37,8 +37,7 @@ class EditView(View):
 
 
         if form.is_valid():
-            f = form.save(commit=False)
-            f.save()
+            form.save()
             user.first_name = form.cleaned_data['first_name']
             user.last_name = form.cleaned_data['last_name']
             user.save()
