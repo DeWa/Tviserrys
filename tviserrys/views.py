@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, render_to_response, render
 from django import forms
 from tviit.models import Tviit, TviitForm
 from user_profile.models import CreateProfileForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from user_profile.models import UserProfile
 
 
@@ -63,6 +63,8 @@ class RegisterView(View):
                 f = form.save(commit=False)
                 f.user = user
                 f.save()
+                g = Group.objects.get(name='users')
+                g.user_set.add(user)
 
                 return HttpResponseRedirect("/")
             else:
