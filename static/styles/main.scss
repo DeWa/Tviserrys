@@ -14,7 +14,23 @@ body {
   font-family: 'Modak', cursive;
   color: white !important;
   font-size:4rem;
+}
 
+.lang-dropdown {
+  min-width: 40px;
+  padding: 0;
+  margin: 0;
+}
+
+.lang-button {
+  border: none !important;
+  width: 100%;
+  margin-top: 10px;
+  background: white;
+}
+
+.lang-button:hover {
+  background: #a9f8ff;
 }
 
 .profile-picture{
@@ -71,7 +87,7 @@ body {
   background: #2aabd2;
 
   textarea {
-    width: 500px;
+    width: 100%;
     height: 100px;
     resize: none;
   }

@@ -38,20 +38,20 @@
                             <span class="flag-icon flag-icon-fi"></span>
                         {% endif %}
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu lang-dropdown">
                         {% if LANGUAGE_CODE == 'en' %}
                             <form action="{% url 'set_language' %}" method="post">
                                 {% csrf_token %}
                                 <input name="next" type="hidden" value="{{ redirect_to }}"/>
                                 <input name="language" type="hidden" value="fi"/>
-                                <button type="submit"><span class="flag-icon flag-icon-fi"></span></button>
+                                <button class="lang-button" type="submit"><span class="flag-icon flag-icon-fi"></span></button>
                             </form>
                         {% else %}
                             <form action="{% url 'set_language' %}" method="post">
                                 {% csrf_token %}
                                 <input name="next" type="hidden" value="/"/>
                                 <input name="language" type="hidden" value="en"/>
-                                <button type="submit" value="en"><span class="flag-icon flag-icon-gb"></span></button>
+                                <button class="lang-button" type="submit" value="en"><span class="flag-icon flag-icon-gb"></span></button>
                             </form>
                         {% endif %}
                     </ul>
