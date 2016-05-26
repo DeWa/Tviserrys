@@ -29,6 +29,10 @@ class IndexView(View):
 
 class RegisterView(View):
         def get(self, request, *args, **kwargs):
+            # If user is already logged in, redirect to front page
+            if request.user.is_authenticated():
+                return HttpResponseRedirect("/")
+
             template = loader.get_template('registration/register.html')
             form = CreateProfileForm()
             context = {
@@ -37,10 +41,27 @@ class RegisterView(View):
             return HttpResponse(template.render(context, request))
 
         def post(self, request, *args, **kwargs):
-            form = CreateProfileForm(request.POST)
+            # If user is already logged in, redirect to front page
+            if request.user.is_authenticated():
+                return HttpResponseRedirect("/")
+
+            form = CreateProfileForm(request.POST, request.FILES)
             template = loader.get_template('registration/register.html')
             if form.is_valid():
-                new_user = form.save()
+                username = form.cleaned_data['username']
+                first_name = form.cleaned_data['first_name']
+                last_name = form.cleaned_data['last_name']
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                user = User.objects.create_user(username=username,
+                                                first_name=first_name,
+                                                last_name=last_name,
+                                                email=email,
+                                                password=password)
+                f = form.save(commit=False)
+                f.user = user
+                f.save()
+
                 return HttpResponseRedirect("/")
             else:
                 context = {
