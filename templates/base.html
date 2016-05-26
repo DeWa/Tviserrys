@@ -68,8 +68,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">
-                            {% if profile.picture %}
-                                <img class="profile-picture-small" src="{{ profile.picture.url }}" alt="Profile">
+                            {% if request.user.userprofile.picture %}
+                                <img class="profile-picture-small" src="{{ request.user.userprofile.picture.url }}" alt="Profile">
                             {% else %}
                                 <img class="profile-picture-small" src="{% static "images/placeholder_user.svg" %}"
                                      alt="Profile">
