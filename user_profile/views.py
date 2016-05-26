@@ -56,15 +56,15 @@ class ViewView(View):
     @method_decorator(login_required(login_url='/login/'))
     def get(self, request, *args, **kwargs):
         template = loader.get_template('profile/view.html')
-        if 'user_name' in kwargs:
-            user = get_object_or_404(User, username=kwargs['user_name'])
+        if 'username' in kwargs:
+            profile_user = get_object_or_404(User, username=kwargs['username'])
         else:
-            user = request.user
+            profile_user = request.user
 
-        profile = UserProfile.objects.get(user=user)
+        profile = UserProfile.objects.get(user=request.user)
 
         context = {
-            'user': user,
+            'profile_user': profile_user,
             'profile': profile,
             'apikey': settings.GOOGLE_API_KEY
         }
