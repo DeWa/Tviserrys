@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-26 21:27+0300\n"
+"POT-Creation-Date: 2016-05-26 21:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: templates/base.html:24
+msgid "Toggle navigation"
+msgstr "Navigaatio"
+
+#: templates/base.html:80
+msgid "Profile"
+msgstr "Profiili"
+
+#: templates/base.html:81
+msgid "Settings"
+msgstr "Asetukset"
+
+#: templates/base.html:83
+msgid "Sign out"
+msgstr "Kirjaudu ulos"
+
 #: templates/profile/edit.html:9
 msgid "Back"
 msgstr "Takaisin"
@@ -26,11 +42,11 @@ msgstr "Takaisin"
 msgid "Edit Profile"
 msgstr "Muokkaa Profiilia"
 
-#: templates/profile/edit.html:19
+#: templates/profile/edit.html:19 templates/registration/register.html.py:20
 msgid "First Name"
 msgstr "Etunimi"
 
-#: templates/profile/edit.html:26
+#: templates/profile/edit.html:26 templates/registration/register.html.py:25
 msgid "Last Name"
 msgstr "Sukunimi"
 
@@ -39,10 +55,12 @@ msgid "Your profile picture will be cropped into 200x200 pixels"
 msgstr "Profiilikuvasi tullaan rajaamaan 200x200 kokoiseksi."
 
 #: templates/profile/edit.html:57 templates/profile/view.html.py:24
+#: templates/registration/register.html:50
 msgid "Description"
 msgstr "Esittely"
 
 #: templates/profile/edit.html:64 templates/profile/view.html.py:31
+#: templates/registration/register.html:55
 msgid "Location"
 msgstr "Sijainti"
 
@@ -68,17 +86,64 @@ msgstr "Haluatko varmasti poistaa tilisi? (Tämä tuhoaa myös tviittisi)"
 msgid "Cancel"
 msgstr "Peruuta"
 
+#: templates/registration/logged_out.html:8
+msgid "Logging out..."
+msgstr "Kirjaudutaan ulos..."
+
 #: templates/registration/login.html:9
 msgid "Your username and password didn't match. Please try again."
 msgstr "Käyttäjänimesi ja/tai salasanasi ei kelpaa. Yritä uudestaan"
 
-#: templates/registration/login.html:17
+#: templates/registration/login.html:14
+msgid ""
+"Your account doesn't have access to this page. To proceed, please login with "
+"an account that has access."
+msgstr ""
+"Tililläsi ei ole pääsyä sivulle. Kirjaudu sisään oikealla tilillä jatkaaksesi"
+
+#: templates/registration/login.html:16
 msgid "Please login to see this page."
 msgstr "Kirjaudu sisään nähdäksesi sivun."
 
-#: templates/registration/login.html:25
+#: templates/registration/login.html:24 templates/registration/register.html:15
 msgid "Username"
 msgstr "Käyttäjänimi"
+
+#: templates/registration/login.html:28 templates/registration/register.html:35
+msgid "Password"
+msgstr "Salasana"
+
+#: templates/registration/login.html:33
+msgid "Login"
+msgstr "Kirjaudu"
+
+#: templates/registration/login.html:38
+msgid "New? Sign up!"
+msgstr "Uusi? Rekisteröidy"
+
+#: templates/registration/login.html:39
+msgid "Lost Password?"
+msgstr "Kadonnut salasana?"
+
+#: templates/registration/register.html:9
+msgid "Create account"
+msgstr "Luo tili"
+
+#: templates/registration/register.html:30
+msgid "Email"
+msgstr "Sähköposti"
+
+#: templates/registration/register.html:40
+msgid "Repeat Password"
+msgstr "Toista salasana"
+
+#: templates/registration/register.html:45
+msgid "Profile Picture"
+msgstr "Profiilikuva"
+
+#: templates/registration/register.html:60
+msgid "Create"
+msgstr "Luo"
 
 #: templates/search/search.html:6
 msgid "Search"
