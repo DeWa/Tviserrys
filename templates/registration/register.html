@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
 
 {% block content %}
     <div class="container">
@@ -24,9 +26,14 @@
                         {{ form.last_name }}
                     </li>
                     <li>
+                        <label for="id_email">Email</label>
+                        {{ form.email.errors }}
+                        {{ form.email }}
+                    </li>
+                    <li>
                         <label for="id_password1">Password</label>
-                        {{ form.password1.errors }}
-                        {{ form.password2 }}
+                        {{ form.password.errors }}
+                        {{ form.password }}
                     </li>
                     <li>
                         <label for="id_password2">Repeat Password</label>
@@ -55,5 +62,8 @@
             </form>
         </div>
     </div>
-
+    <script type="text/javascript" src="{% static "summernote/dist/summernote.min.js" %}"></script>
+    <script type="text/javascript">
+        $('#id_description').summernote({height: 300});
+    </script>
 {% endblock %}
