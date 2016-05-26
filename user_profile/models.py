@@ -48,15 +48,12 @@ class UserProfile(models.Model):
   def __str__(self):
     return '%s userprofile' % (self.user.username)
 
-'''
-# Create UserProfile when user is created
-@receiver(post_save, sender=User)
-def create_profile(sender, **kwargs):
-    user = kwargs["instance"]
-    if kwargs["created"]:
-      profile = UserProfile(user=user)
-      profile.save()
-'''
+  @property
+  def get_picture(self):
+      if not self.picture:
+          return "/static/images/placeholder_user.svg"
+      else:
+          return self.picture.url
 
 # Resize image and crop it
 @receiver(post_save, sender=UserProfile)
