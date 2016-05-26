@@ -2,6 +2,7 @@
 body {
   padding-top: 90px;
   background: #f9f9f9;
+  padding-bottom: 90px;
 }
 
 /* Navigation */
@@ -110,4 +111,11 @@ body {
   padding-bottom: 15px;
   border-bottom: solid 2px #eeeeee;
 
+}
+
+.description-box {
+  padding: 10px 20px;
+  border: solid 2px #d9d9d9;
+  border-radius: 5px;
+  margin: 20px 0;
 }
