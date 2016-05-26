@@ -110,23 +110,11 @@
             });
         }
     </script>
-    <script type="text/javascript" src="{% static "trumbowyg/dist/trumbowyg.min.js" %}"></script>
-    <script type="text/javascript">
-
-        $('#id_description').trumbowyg({
-            btns: [
-                ['viewHTML'],
-                ['formatting'],
-                'btnGrp-semantic',
-                ['superscript', 'subscript'],
-                ['link'],
-                'btnGrp-justify',
-                'btnGrp-lists',
-                ['horizontalRule'],
-                ['removeformat'],
-                ['fullscreen']
-            ]
+    <script src='https://cdn.tinymce.com/4/tinymce.min.js'></script>
+    <script>
+        tinymce.init({
+            selector: '#id_description',
+            plugins : 'advlist autolink link lists charmap preview'
         });
-
     </script>
 {% endblock %}
