@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.password_reset_confirm),
     url(r'^reset/done/$', auth_views.password_reset_complete),
     url(r'^profile/', include('user_profile.urls', namespace='profile')),
+    url(r'^search/', include('haystack.urls')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': MEDIA_ROOT, 'show_indexes': False}),
 ]

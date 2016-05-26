@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'compressor',
     'djangobower',
     'django_bleach',
+    'haystack',
     'user_profile',
     'tviit',
 ]
@@ -140,6 +141,14 @@ BOWER_INSTALLED_APPS = (
     'bootstrap',
     'flag-icon-css',
 )
+
+
+# Haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
 
 # Media
 MEDIA_ROOT = BASE_DIR + '/media/'
