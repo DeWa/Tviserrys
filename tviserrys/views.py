@@ -77,8 +77,12 @@ class RegisterView(View):
 
 # Get all the tviits, which aren't replies
 def get_latest_tviits(profile):
+    # TODO make it work correctly
+    '''
     follows = User.objects.filter(pk__in=profile.follows.all())
     tviits = Tviit.objects.filter(Q(sender__in=follows)|Q(sender=profile.user)).order_by('-created')
+    '''
+    tviits = Tviit.objects.all().order_by('-created')
     return tviits
 
 # Get 5 random users
