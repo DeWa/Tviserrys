@@ -35,7 +35,7 @@ rename_thumbnail = PathAndRename("profiles/thumbs")
 class UserProfile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   description = models.TextField(max_length=3000, blank=True)
-  picture = models.ImageField(blank=True, upload_to=rename_image)
+  picture = models.ImageField(blank=True, null=True, upload_to=rename_image)
   location = models.CharField(max_length=100, blank=True)
   thumbnail = models.ImageField(
     upload_to=rename_thumbnail,
@@ -48,7 +48,7 @@ class UserProfile(models.Model):
   def __str__(self):
     return '%s userprofile' % (self.user.username)
 
-
+'''
 # Create UserProfile when user is created
 @receiver(post_save, sender=User)
 def create_profile(sender, **kwargs):
@@ -56,32 +56,37 @@ def create_profile(sender, **kwargs):
     if kwargs["created"]:
       profile = UserProfile(user=user)
       profile.save()
+'''
 
 # Resize image and crop it
 @receiver(post_save, sender=UserProfile)
 def resize_and_crop(sender, **kwargs):
     profile = kwargs["instance"]
-    picture = profile.picture
-    image = Image.open(picture.path)
 
-    # Get the right ratio
-    width, height = image.size
-    ratio = width / height
+    if profile.picture:
+        picture = profile.picture
+        image = Image.open(picture.path)
 
-    if width <= height:
-        new_width = 200
-        new_height = new_width / ratio
+        # Get the right ratio
+        width, height = image.size
+        ratio = width / height
+
+        if width <= height:
+            new_width = 200
+            new_height = new_width / ratio
+        else:
+            new_height = 200
+            new_width = new_height * ratio
+
+
+        new_height = int(round(new_height))
+        new_width = int(round(new_width))
+
+        image = image.resize((new_width, new_height), Image.ANTIALIAS)
+        image = image.crop((0, 0, 200, 200))
+        image.save(picture.path)
     else:
-        new_height = 200
-        new_width = new_height * ratio
-
-
-    new_height = int(round(new_height))
-    new_width = int(round(new_width))
-
-    image = image.resize((new_width, new_height), Image.ANTIALIAS)
-    image = image.crop((0, 0, 200, 200))
-    image.save(picture.path)
+        return
 
 class CreateProfileForm(ModelForm):
 
@@ -94,6 +99,7 @@ class CreateProfileForm(ModelForm):
     ])
     first_name = forms.CharField(label='First name', max_length=100)
     last_name = forms.CharField(label='Last name', max_length=100)
+    email = forms.EmailField(label='Email', max_length=500)
     password = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())
 
@@ -105,7 +111,7 @@ class CreateProfileForm(ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ['username', 'first_name', 'last_name','password', 'password2', 'description','picture', 'location']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'password2', 'description','picture', 'location']
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -115,6 +121,14 @@ class CreateProfileForm(ModelForm):
             return username
         raise forms.ValidationError(u'%s already exists' % username)
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return email
+        raise forms.ValidationError(u'%s already exists' % email)
+
     def clean(self, *args, **kwargs):
         cleaned_data = super(CreateProfileForm, self).clean()
         password = cleaned_data.get("password")
@@ -123,8 +137,12 @@ class CreateProfileForm(ModelForm):
         # Error if passwords are empty
         if not password or not password2:
             raise forms.ValidationError({'password': ['Password cannot be empty']})
-        if password != password:
+        # Error if passwords aren't the same
+        if password != password2:
             raise forms.ValidationError({'password': ['Passwords don\'t match']})
+
+        if len(password) < 6:
+            raise forms.ValidationError({'password': ['Minimun length for password is 6 characters']})
 
         return super(CreateProfileForm, self).clean(*args, **kwargs)
 
