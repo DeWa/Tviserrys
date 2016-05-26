@@ -60,6 +60,13 @@
                                             {{ tviit.content }}
                                         </div>
                                     </div>
+                                    {% if tviit.image %}
+                                        <div class="row">
+                                            <div class="col-lg-12 tviit-content">
+                                                <a href="{{ tviit.image.url }}" target="_blank"><img src="{{ tviit.thumbnail.url }}" alt="img"></a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                     <div class="row">
                                         <div class="col-lg-2">
                                             <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-retweet" aria-hidden="true"></span></button>
