@@ -81,3 +81,23 @@ def delete_account(request):
         return HttpResponse(status=200)  # Ok
     else:
         return HttpResponse(status=400)  # Bad Content
+
+@csrf_protect
+def follow_user(request, username):
+    if request.method == 'POST':
+        user = request.user
+        followed_user = get_object_or_404(User, username=username)
+        user.userprofile.follows.add(followed_user.userprofile)
+        return HttpResponse(status=200)  # Ok
+    else:
+        return HttpResponse(status=400)  # Bad Content
+
+@csrf_protect
+def unfollow_user(request, username):
+    if request.method == 'POST':
+        user = request.user
+        followed_user = get_object_or_404(User, username=username)
+        user.userprofile.follows.remove(followed_user.userprofile)
+        return HttpResponse(status=200)  # Ok
+    else:
+        return HttpResponse(status=400)  # Bad Content

@@ -37,51 +37,55 @@
                         </form>
                     </div>
                 </div>
-                {% for tviit in tviits %}
-                    <div class="row tvit-box">
-                        <div class="col-lg-2">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <img class="profile-picture" src="{{ tviit.sender.userprofile.picture.url }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-10">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <a href="{% url "profile:profile_view" tviit.sender.username %}">{{ tviit.sender.first_name }} {{ tviit.sender.last_name }}</a>
-                                    @{{ tviit.sender.username }} {{ tviit.created|date:'Y-m-d H:i' }}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 tviit-content">
-                                    {{ tviit.content }}
-                                </div>
-                            </div>
-                            <div class="row">
+                <div class="row basebox" style="margin-top: 10px">
+                    <div class="col-lg-12">
+                        {% for tviit in tviits %}
+                            <div class="row tvit-box">
                                 <div class="col-lg-2">
-                                    <button type="button">ReTvit</button>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <img class="profile-picture" src="{{ tviit.sender.userprofile.get_picture }}">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2">
-                                    <button class="reply-tviit-button" type="button">Reply</button>
-                                </div>
-                                <div class="col-lg-2">
-                                    <button type="button">Like</button>
+                                <div class="col-lg-10">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <a href="{% url "profile:profile_view" tviit.sender.username %}">{{ tviit.sender.first_name }} {{ tviit.sender.last_name }}</a>
+                                            @{{ tviit.sender.username }} {{ tviit.created|date:'Y-m-d H:i' }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 tviit-content">
+                                            {{ tviit.content }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-retweet" aria-hidden="true"></span></button>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button class="reply-tviit-button btn btn-info" type="button"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row reply-tviit">
+                                <form class="replyTviitForm" action="{% url 'tviit:reply_tviit' %}" method="post"
+                                      enctype="multipart/form-data">
+                                    <input type="hidden" name="reply" value="{{ tviit.uuid }}">
+                                    {% csrf_token %}
+                                    {{ tviit_form.content }}
+                                    {{ tviit_form.image }}
+                                    <button class="submitReply" type="button">Tviit</button>
+                                </form>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="row reply-tviit">
-                        <form class="replyTviitForm" action="{% url 'tviit:reply_tviit' %}" method="post"
-                              enctype="multipart/form-data">
-                            <input type="hidden" name="reply" value="{{ tviit.uuid }}">
-                            {% csrf_token %}
-                            {{ tviit_form.content }}
-                            {{ tviit_form.image }}
-                            <button class="submitReply" type="button">Tviit</button>
-                        </form>
-                    </div>
-                {% endfor %}
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="row basebox">
@@ -102,7 +106,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <button type="button" class="btn btn-info"><span
+                                            <button data-user="{{ user.username }}" type="button" class="follow-button btn btn-info"><span
                                                     class="glyphicon glyphicon-plus"
                                                     aria-hidden="true"></span>{% trans "Follow" %}</button>
                                         </div>

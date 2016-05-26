@@ -15,7 +15,7 @@ $( "#submitTviit" ).click(function() {
       contentType: false,
       success: function( response ) {
           form[0].reset();
-          alert('success');
+          location.reload();
       }
     } );
 
@@ -34,7 +34,7 @@ $( ".submitReply" ).click(function() {
       contentType: false,
       success: function( response ) {
           form[0].reset();
-          alert('success');
+          location.reload();
       }
     } );
 
@@ -42,10 +42,19 @@ $( ".submitReply" ).click(function() {
 
 $(".reply-tviit-button").click(function () {
     $(this).parent().parent().parent().parent().next(".reply-tviit").toggle();
-    if($(this).html() == 'Reply') {
-        $(this).html('Hide');
-    } else {
-        $(this).html('Reply');
-    }
+});
 
+$(".follow-button").click(function () {
+    var username = $(this).attr('data-user');
+    var csrftoken = $.cookie("csrftoken");
+     $.ajax({
+         type: "POST",
+         data: {
+            csrfmiddlewaretoken: csrftoken
+         },
+         url: "/profile/follow/" + username + "/",
+         success: function (response) {
+             console.log("success");
+         }
+     });
 });

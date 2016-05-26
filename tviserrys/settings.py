@@ -138,6 +138,7 @@ STATICFILES_FINDERS = [
 BOWER_COMPONENTS_ROOT = PROJECT_PATH + '/../'
 BOWER_INSTALLED_APPS = (
     'jquery',
+    'jquery-cookie',
     'bootstrap',
     'flag-icon-css',
 )

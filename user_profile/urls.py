@@ -9,4 +9,6 @@ urlpatterns = [
     url(r'^view/', views.ViewView.as_view(), name='profile_own_view'),
     url(r'^view/(?P<username>[a-zA-Z0-9_-]+)/$', views.ViewView.as_view(), name='profile_view'),
     url(r'^delete/$', views.delete_account, name="delete_account"),
+    url(r'^follow/(?P<username>[a-zA-Z0-9_-]+)/$', views.follow_user, name="follow_user"),
+    url(r'^unfollow/(?P<username>[a-zA-Z0-9_-]+)/$', views.unfollow_user, name="unfollow_user"),
 ]

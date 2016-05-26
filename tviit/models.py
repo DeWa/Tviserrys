@@ -27,7 +27,7 @@ rename_thumbnail = PathAndRename("attachments/thumbs")
 
 class Tviit(models.Model):
 
-    uuid = models.CharField(unique=True, max_length=40, default=uuid.uuid4().int, editable=False)
+    uuid = models.CharField(unique=True, max_length=40, editable=False)
     sender = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

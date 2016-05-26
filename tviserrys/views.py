@@ -10,6 +10,7 @@ from tviit.models import Tviit, TviitForm
 from user_profile.models import CreateProfileForm
 from django.contrib.auth.models import User, Group
 from user_profile.models import UserProfile
+from django.db.models import Q
 
 
 class IndexView(View):
@@ -18,7 +19,7 @@ class IndexView(View):
     def get(self, request, *args, **kwargs):
         template = loader.get_template('tviit/index.html')
         profile = UserProfile.objects.get(user=request.user)
-        users = get_random_users()
+        users = get_random_users(request.user)
 
         tviits = get_latest_tviits(profile)
         context = {
@@ -77,10 +78,12 @@ class RegisterView(View):
 # Get all the tviits, which aren't replies
 def get_latest_tviits(profile):
     follows = User.objects.filter(pk__in=profile.follows.all())
-    tviits = Tviit.objects.filter(sender__in=follows)
+    tviits = Tviit.objects.filter(Q(sender__in=follows)|Q(sender=profile.user)).order_by('-created')
     return tviits
 
 # Get 5 random users
-def get_random_users():
-    users = User.objects.filter(groups__name__in=['users']).order_by('?')[:5]
+def get_random_users(user):
+    follows = user.userprofile.follows.values_list("pk")
+    users = User.objects.filter(groups__name__in=['users']).exclude(Q(pk__in=follows) | Q(pk=user.pk)).order_by('?')[:5]
+
     return users
