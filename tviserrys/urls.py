@@ -22,3 +22,7 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': MEDIA_ROOT, 'show_indexes': False}),
 ]
+
+urlpatterns += patterns('',
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+)

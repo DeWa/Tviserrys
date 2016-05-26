@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col-md-12 text">
                 {% if form.errors %}
-                <p>Your username and password didn't match. Please try again.</p>
+                <p>{% trans "Your username and password didn't match. Please try again." %}</p>
                 {% endif %}
 
                 {% if next %}
@@ -13,7 +14,7 @@
                     <p>Your account doesn't have access to this page. To proceed,
                     please login with an account that has access.</p>
                     {% else %}
-                    <p>Please login to see this page.</p>
+                    <p>{% trans "Please login to see this page." %}</p>
                     {% endif %}
                 {% endif %}
 
@@ -21,7 +22,7 @@
                 {% csrf_token %}
                 <table>
                 <tr>
-                    <td>{{ form.username.label_tag }}</td>
+                    <td><label for="id_username">{% trans "Username" %}</label></td>
                     <td>{{ form.username }}</td>
                 </tr>
                 <tr>

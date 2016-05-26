@@ -41,6 +41,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -60,6 +61,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.i18n',
             ],
         },
     },
@@ -111,6 +113,9 @@ LANGUAGES = [
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+LOCALE_PATHS = [
+    os.path.join(PROJECT_PATH, '../locale'),
+]
 
 USE_L10N = True
 
@@ -133,7 +138,7 @@ BOWER_COMPONENTS_ROOT = PROJECT_PATH + '/../'
 BOWER_INSTALLED_APPS = (
     'jquery',
     'bootstrap',
-    'trumbowyg',
+    'flag-icon-css',
 )
 
 # Media
